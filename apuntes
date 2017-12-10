@@ -1,0 +1,32 @@
+ping con docker
+
+docker run --rm -it alpine ping -c 1 8.8.8.8
+docker run --rm -it --link Traking-mongo alpine ping -c 1 8.8.8.8
+
+ejecutar un comando antes de lanzar la app del contenedor
+
+ docker run \
+ 	-v path:path\
+ 	image \ 
+ 	sh -c "$COMMAND; /usr/local/bin/docker-entrypoint"
+
+
+ crear imagen con nombre 
+
+ 	docker build -t my-logstash .
+
+
+ accecer a una maquina 
+ 	docker run -it  imagen sh 
+
+ ver estado del systema espacio de volumenes/ images/contenedores
+
+ docker system df -v
+
+
+ API
+ 	tweets == nombre de la coleccion
+
+ 	http://192.168.1.8:3000/api/v1/tweets?limit=1
+
+ 

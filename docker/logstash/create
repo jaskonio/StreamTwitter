@@ -1,0 +1,39 @@
+####################################
+		CREATE IMAGE
+####################################
+
+	docker build -t my-logstash:0.1 .
+
+####################################
+	 			RUN
+###############################
+ docker stop logstash1 
+ docker rm logstash1
+ docker run \
+ -d \
+ --link Tracking-mongo \
+ --name logstash1 \
+ -v //c/Users/jonatan/Documents/TrackingTwitter/docker/logstash/conf/:/usr/share/logstash/pipeline/ \
+ my-logstash:0.1 \
+ -f /usr/share/logstash/pipeline/twitter.conf
+ docker logs logstash1 -f 
+
+ #####################################
+ 			CONFIG LOGSTASH
+ #####################################
+			
+ output{
+	 http { 
+	  	codec => "json"
+	    http_method => post
+	    url => "http://192.168.1.8:3000/api/v1/Customer"
+		}
+}
+
+output{
+	mongodb {
+		collection => "tweets"
+		database => "Twitter"
+		uri => "mongodb://Tracking-mongo:27017"
+	}
+}
