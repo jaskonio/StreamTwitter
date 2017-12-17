@@ -1,0 +1,16 @@
+<div>
+  <div *ngFor="let tweet of tweets">
+    <span>
+      {{tweet.user}}
+    </span>
+      <p>
+        {{tweet.text}}
+      </p>
+      <p>
+        {{tweet.created_at}}
+      </p>
+      <p>
+        {{tweet.timestamp_ms}}
+      </p>
+  </div>
+</div>
