@@ -1,0 +1,6 @@
+.git
+Dockerfile
+.gitignore
+README.md
+app/node_modules/*
+.vscode/*

@@ -27,6 +27,6 @@ ejecutar un comando antes de lanzar la app del contenedor
  API
  	tweets == nombre de la coleccion
 
- 	http://192.168.1.8:3000/api/v1/tweets?limit=1
+ 	http://localhost:3000/api/v1/tweets?limit=1
 
  
