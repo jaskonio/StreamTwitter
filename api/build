@@ -1,0 +1,1 @@
+docker build -t tracking-twiter-api:0.1 . 

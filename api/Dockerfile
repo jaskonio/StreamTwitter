@@ -12,7 +12,7 @@ RUN npm install
 # If you are building your code for production
 # RUN npm install --only=production
 
-COPY app/* .
+COPY app/* ./
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

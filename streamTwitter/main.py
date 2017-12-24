@@ -4,6 +4,8 @@ import tweepy
 import time
 from tweepy import OAuthHandler
 from tweepy import Stream
+import json
+from pymongo import MongoClient
 
 
 #Variables that contains the user credentials to access Twitter API 
@@ -23,13 +25,39 @@ configForTrend = {
     "idGeolocation" : 23424950 #id Spain
 }
 
-class StdOutListener( tweepy.StdOutListener):
+
+MONGO_HOST= 'mongodb://db/Twitter'
+
+class StdOutListener( tweepy.StreamListener):
     def on_data(self, data):
-        print(data)
-        return True
+        #This is the meat of the script...it connects to your mongoDB and stores the tweet
+        try:
+            client = MongoClient(MONGO_HOST)
+            
+            # Use twitterdb database. If it doesn't exist, it will be created.
+            db = client.tweets
+    
+            # Decode the JSON from Twitter
+            datajson = json.loads(data)
+            
+            #grab the 'created_at' data from the Tweet to use for display
+            created_at = datajson['created_at']
+ 
+            #print out a message to the screen that we have collected a tweet
+            print("Tweet collected at " + str(created_at))
+            
+            #insert the data into the mongoDB into a collection called twitter_search
+            #if twitter_search doesn't exist, it will be created.
+            db.twitter_search.insert(datajson)
+
+        except Exception as e:
+           print(e)
 
     def on_error(self, status):
         print(status)
+        return false
+
+
 
 def getTrends():
     auth = tweepy.OAuthHandler(
@@ -46,7 +74,7 @@ def getTrends():
     names = [trend['name'] for trend in trends]
     #trendsName = ' '.join(names)
     for name in names:
-        print(" - %s" % name)
+        #print(" - %s" % name)
         hastasgs.append(name)
     return hastasgs
 
@@ -57,13 +85,9 @@ if __name__ == '__main__':
 
     #This handles Twitter authetification and the connection to Twitter Streaming API
     l = StdOutListener()
-
     auth = OAuthHandler(config["consumer_key"], config["consumer_secret"])
     auth.set_access_token(config["access_key"], config["access_secret"])
-
     stream = Stream(auth, l)
-
-
     trends = getTrends()
     print(trends)
     stream.filter(track=trends)

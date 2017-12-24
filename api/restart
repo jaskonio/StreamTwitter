@@ -1,0 +1,8 @@
+docker stop tracking-api
+docker rm tracking-api
+docker run \
+    -d \
+    -p 3000:3000 \
+    --link Tracking-mongo:Tracking-mongo \
+    --name tracking-api \
+    tracking-twiter-api:0.1
