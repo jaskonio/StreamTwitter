@@ -19,5 +19,5 @@ CMD [ "npm", "start" ]
 
 ## create image
 ## docker build -t Tracking-twiter-api:0.1 .
-## docker run --name tracking-twiter-api -dit -p 3000:3000 --link Tracking-mongo tracking-twiter-api:0.1
+## docker run --name Tracking-twiter-api -dit -p 3000:3000 --link Tracking-mongo tracking-twiter-api:0.1
 ## docker logs -f tracking-twiter-api
