@@ -26,7 +26,7 @@ configForTrend = {
 }
 
 
-MONGO_HOST= 'mongodb://db/Twitter'
+MONGO_HOST= 'mongodb://Tracking-mongo/Twitter'
 
 class StdOutListener( tweepy.StreamListener):
     def on_data(self, data):

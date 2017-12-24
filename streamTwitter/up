@@ -1,0 +1,2 @@
+docker stop tracking
+docker start tracking

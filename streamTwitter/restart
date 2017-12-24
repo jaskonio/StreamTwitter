@@ -1,0 +1,7 @@
+docker stop tracking
+docker rm tracking
+docker run \
+    -d \
+    --link Tracking-mongo:Tracking-mongo \
+    --name tracking \
+    streamtwitter:0.1
