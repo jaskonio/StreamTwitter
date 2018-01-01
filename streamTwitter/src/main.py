@@ -82,7 +82,7 @@ def getMinute():
     return time.strftime("%M")
 
 if __name__ == '__main__':
-
+    
     #This handles Twitter authetification and the connection to Twitter Streaming API
     l = StdOutListener()
     auth = OAuthHandler(config["consumer_key"], config["consumer_secret"])

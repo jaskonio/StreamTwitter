@@ -1,4 +1,28 @@
-version: '2'
+version: '3'
 services:
-  webapp:
-    build: app/
+
+  Tracking-mongo:
+    image: mongo
+    volumes:
+      - data-volume:/var/lib/db
+    ports:
+      - "27017:27017"
+
+  api:
+    build: api/
+    depends_on:
+      - parse
+    links:
+      - Tracking-mongo:Tracking-mongo
+    ports:
+      - "3000:3000"
+
+  parse:
+    build: streamTwitter/
+    links:
+      - Tracking-mongo:Tracking-mongo
+    depends_on:
+      - Tracking-mongo
+
+volumes:
+  data-volume:
