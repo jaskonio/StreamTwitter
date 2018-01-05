@@ -1,28 +1,25 @@
 version: '3'
 services:
 
-  Tracking-mongo:
+  stream:
+    build: streamTwitter/
+    links:
+      - tracking-mongo:Tracking-mongo
+    depends_on:
+      - tracking-mongo
+  tracking-mongo:
     image: mongo
     volumes:
       - data-volume:/var/lib/db
-    ports:
-      - "27017:27017"
-
   api:
     build: api/
     depends_on:
-      - parse
+      - stream
     links:
-      - Tracking-mongo:Tracking-mongo
+      - tracking-mongo:Tracking-mongo
     ports:
       - "3000:3000"
 
-  parse:
-    build: streamTwitter/
-    links:
-      - Tracking-mongo:Tracking-mongo
-    depends_on:
-      - Tracking-mongo
-
 volumes:
   data-volume:
+  
